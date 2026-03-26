@@ -9,39 +9,45 @@ export default function App() {
     {
       title: 'NewsGlobe360',
       category: 'Analytics',
-      description:
+      shortDescription:
         'Multilingual news analytics system with NLP and interactive visualization.',
       tools: ['Python', 'FastAPI', 'React', 'NLP'],
       problem:
-        'News data is noisy, multilingual, and difficult to explore quickly.',
+        'News data is noisy, multilingual, and difficult to explore quickly across topics and regions.',
+      approach:
+        'Built an end-to-end analytics experience using NLP pipelines, APIs, and an interactive frontend to help users explore clustered global news events.',
       outcome:
-        'Built an end-to-end platform for analyzing and exploring global news events interactively.',
+        'Created a product-style data application that combines backend engineering, NLP, and visual storytelling in one interactive system.',
       github: 'https://github.com/MANOJSEQ',
       demo: 'https://huggingface.co/MANOJSEQ',
     },
     {
       title: 'Quantium Sales Analysis',
       category: 'Analytics',
-      description:
+      shortDescription:
         'Retail data analysis to evaluate marketing strategy performance.',
       tools: ['Python', 'Excel', 'EDA'],
       problem:
-        'The goal was to compare trial and control stores to understand campaign performance.',
+        'The business needed to compare trial and control stores to understand whether a campaign delivered measurable impact.',
+      approach:
+        'Used exploratory analysis, customer segmentation thinking, and store-level comparisons to identify patterns in transactions and customer behavior.',
       outcome:
-        'Produced clear business insights and recommendations from customer and transaction data.',
+        'Produced clear business recommendations and evidence-based insights from retail data in a decision-friendly format.',
       github: 'https://github.com/MANOJSEQ',
       demo: 'https://github.com/MANOJSEQ',
     },
     {
       title: 'British Airways Prediction',
       category: 'Machine Learning',
-      description:
+      shortDescription:
         'Predictive model for customer behavior and demand forecasting.',
-      tools: ['Python', 'Scikit-learn'],
+      tools: ['Python', 'Scikit-learn', 'Feature Engineering'],
       problem:
-        'Operational teams need better forecasting to improve planning and customer experience.',
+        'Operational teams need better forecasting to improve planning, capacity decisions, and customer experience.',
+      approach:
+        'Built a machine learning workflow using cleaned data, engineered features, and predictive modeling techniques to estimate demand and behavior.',
       outcome:
-        'Built a machine learning workflow for demand and behavior prediction using engineered features.',
+        'Demonstrated how machine learning can support real operational planning and customer-focused decision-making.',
       github: 'https://github.com/MANOJSEQ',
       demo: 'https://github.com/MANOJSEQ',
     },
@@ -53,10 +59,13 @@ export default function App() {
     return projects.filter((project) => {
       const categoryMatch =
         selectedCategory === 'All' || project.category === selectedCategory;
+
+      const q = search.toLowerCase();
       const searchMatch =
-        project.title.toLowerCase().includes(search.toLowerCase()) ||
-        project.description.toLowerCase().includes(search.toLowerCase()) ||
-        project.tools.join(' ').toLowerCase().includes(search.toLowerCase());
+        project.title.toLowerCase().includes(q) ||
+        project.shortDescription.toLowerCase().includes(q) ||
+        project.tools.join(' ').toLowerCase().includes(q);
+
       return categoryMatch && searchMatch;
     });
   }, [projects, search, selectedCategory]);
@@ -64,7 +73,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-950 text-white">
       <div className="max-w-6xl mx-auto px-6 py-10">
-        <nav className="mb-10 flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-5 py-4">
+        <nav className="mb-10 flex flex-col gap-4 md:flex-row md:items-center md:justify-between rounded-2xl border border-white/10 bg-white/5 px-5 py-4">
           <div>
             <p className="text-sm uppercase tracking-[0.2em] text-sky-300">
               Portfolio
@@ -90,15 +99,16 @@ export default function App() {
               Hugging Face
             </a>
             <a
-              href="https://vercel.com/manojseqs-projects"
+              href="https://www.linkedin.com/in/manoj-sequeira/"
               target="_blank"
               rel="noreferrer"
               className="rounded-xl border border-white/10 px-4 py-2 text-sm hover:bg-white/10 transition"
             >
-              Vercel
+              LinkedIn
             </a>
           </div>
         </nav>
+
         <section className="mb-14">
           <div className="inline-block rounded-full border border-sky-400/30 bg-sky-400/10 px-4 py-2 text-sm text-sky-200 mb-6">
             Interactive Data Portfolio
@@ -116,6 +126,25 @@ export default function App() {
             I build projects in analytics, machine learning, and NLP with a focus
             on clean design, interactivity, and real-world impact.
           </p>
+
+          <div className="mt-8 flex flex-wrap gap-4">
+            <a
+              href="https://github.com/MANOJSEQ"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-2xl bg-white text-slate-950 px-5 py-3 font-medium"
+            >
+              View GitHub
+            </a>
+            <a
+              href="https://www.linkedin.com/in/manoj-sequeira/"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-2xl border border-white/10 px-5 py-3 font-medium hover:bg-white/10 transition"
+            >
+              Connect on LinkedIn
+            </a>
+          </div>
         </section>
 
         <section className="mb-10">
@@ -168,11 +197,13 @@ export default function App() {
               <div
                 key={p.title}
                 onClick={() => setSelectedProject(p)}
-                className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-xl hover:-translate-y-1 transition"
+                className="cursor-pointer rounded-3xl border border-white/10 bg-white/5 p-6 shadow-xl hover:-translate-y-1 transition"
               >
                 <p className="text-sm text-sky-300 mb-2">{p.category}</p>
                 <h3 className="text-2xl font-semibold">{p.title}</h3>
-                <p className="mt-4 text-slate-300 leading-7">{p.description}</p>
+                <p className="mt-4 text-slate-300 leading-7">
+                  {p.shortDescription}
+                </p>
 
                 <div className="mt-5 flex flex-wrap gap-2">
                   {p.tools.map((tool) => (
@@ -203,45 +234,53 @@ export default function App() {
 
       {selectedProject && (
         <div className="fixed inset-0 bg-black/70 flex items-center justify-center p-6 z-50">
-          <div className="bg-slate-900 rounded-3xl p-8 max-w-2xl w-full border border-white/10">
-            
-            <h2 className="text-3xl font-bold mb-4">
-              {selectedProject.title}
-            </h2>
+          <div className="bg-slate-900 rounded-3xl p-8 max-w-2xl w-full border border-white/10 max-h-[90vh] overflow-y-auto">
+            <h2 className="text-3xl font-bold mb-4">{selectedProject.title}</h2>
 
-            <p className="text-slate-300 mb-4">
-              {selectedProject.description}
+            <p className="text-slate-300 mb-6">
+              {selectedProject.shortDescription}
             </p>
 
-            <div className="space-y-4 mb-6">
+            <div className="space-y-5 mb-6">
               <div>
-                <p className="text-sm uppercase tracking-wide text-sky-300 mb-1">Problem</p>
+                <p className="text-sm uppercase tracking-wide text-sky-300 mb-2">
+                  Problem
+                </p>
                 <p className="text-slate-300">{selectedProject.problem}</p>
               </div>
 
               <div>
-                <p className="text-sm uppercase tracking-wide text-sky-300 mb-1">Outcome</p>
+                <p className="text-sm uppercase tracking-wide text-sky-300 mb-2">
+                  Approach
+                </p>
+                <p className="text-slate-300">{selectedProject.approach}</p>
+              </div>
+
+              <div>
+                <p className="text-sm uppercase tracking-wide text-sky-300 mb-2">
+                  Outcome
+                </p>
                 <p className="text-slate-300">{selectedProject.outcome}</p>
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-2 mb-6">
+            <div className="flex flex-wrap gap-2 mb-8">
               {selectedProject.tools.map((tool) => (
                 <span
                   key={tool}
-                  className="rounded-full border border-white/10 px-3 py-1 text-sm"
+                  className="rounded-full border border-white/10 px-3 py-1 text-sm text-slate-300"
                 >
                   {tool}
                 </span>
               ))}
             </div>
 
-            <div className="flex flex-wrap gap-3 mt-4">
+            <div className="flex flex-wrap gap-3">
               <a
                 href={selectedProject.github}
                 target="_blank"
                 rel="noreferrer"
-                className="px-6 py-2 bg-white text-black rounded-xl font-medium"
+                className="px-6 py-3 bg-white text-slate-950 rounded-xl font-medium"
               >
                 View GitHub
               </a>
@@ -250,14 +289,14 @@ export default function App() {
                 href={selectedProject.demo}
                 target="_blank"
                 rel="noreferrer"
-                className="px-6 py-2 border border-white/10 rounded-xl font-medium"
+                className="px-6 py-3 border border-white/10 rounded-xl font-medium hover:bg-white/10 transition"
               >
                 Live Demo
               </a>
 
               <button
                 onClick={() => setSelectedProject(null)}
-                className="px-6 py-2 bg-slate-800 text-white rounded-xl"
+                className="px-6 py-3 bg-slate-800 text-white rounded-xl"
               >
                 Close
               </button>
