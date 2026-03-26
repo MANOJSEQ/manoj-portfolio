@@ -18,8 +18,9 @@ export default function App() {
         'Built an end-to-end analytics experience using NLP pipelines, APIs, and an interactive frontend to help users explore clustered global news events.',
       outcome:
         'Created a product-style data application that combines backend engineering, NLP, and visual storytelling in one interactive system.',
-      github: 'https://github.com/MANOJSEQ',
+      github: 'https://github.com/MANOJSEQ/newsglobe-frontend',
       demo: 'https://huggingface.co/MANOJSEQ',
+      status: 'Live',
     },
     {
       title: 'Quantium Sales Analysis',
@@ -33,8 +34,9 @@ export default function App() {
         'Used exploratory analysis, customer segmentation thinking, and store-level comparisons to identify patterns in transactions and customer behavior.',
       outcome:
         'Produced clear business recommendations and evidence-based insights from retail data in a decision-friendly format.',
-      github: 'https://github.com/MANOJSEQ',
-      demo: 'https://github.com/MANOJSEQ',
+      github: '',
+      demo: '',
+      status: 'Coming Soon',
     },
     {
       title: 'British Airways Prediction',
@@ -48,8 +50,9 @@ export default function App() {
         'Built a machine learning workflow using cleaned data, engineered features, and predictive modeling techniques to estimate demand and behavior.',
       outcome:
         'Demonstrated how machine learning can support real operational planning and customer-focused decision-making.',
-      github: 'https://github.com/MANOJSEQ',
-      demo: 'https://github.com/MANOJSEQ',
+      github: '',
+      demo: '',
+      status: 'Coming Soon',
     },
   ];
 
@@ -200,7 +203,12 @@ export default function App() {
                 className="cursor-pointer rounded-3xl border border-white/10 bg-white/5 p-6 shadow-xl hover:-translate-y-1 transition"
               >
                 <p className="text-sm text-sky-300 mb-2">{p.category}</p>
-                <h3 className="text-2xl font-semibold">{p.title}</h3>
+                <div className="flex items-center justify-between gap-3">
+                  <h3 className="text-2xl font-semibold">{p.title}</h3>
+                  <span className="text-xs rounded-full border border-white/10 px-3 py-1 text-slate-300">
+                    {p.status}
+                  </span>
+                </div>
                 <p className="mt-4 text-slate-300 leading-7">
                   {p.shortDescription}
                 </p>
@@ -276,23 +284,35 @@ export default function App() {
             </div>
 
             <div className="flex flex-wrap gap-3">
-              <a
-                href={selectedProject.github}
-                target="_blank"
-                rel="noreferrer"
-                className="px-6 py-3 bg-white text-slate-950 rounded-xl font-medium"
-              >
-                View GitHub
-              </a>
+              {selectedProject.github ? (
+                <a
+                  href={selectedProject.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-6 py-3 bg-white text-slate-950 rounded-xl font-medium"
+                >
+                  View GitHub
+                </a>
+              ) : (
+                <span className="px-6 py-3 bg-slate-800 text-slate-300 rounded-xl font-medium">
+                  GitHub Coming Soon
+                </span>
+              )}
 
-              <a
-                href={selectedProject.demo}
-                target="_blank"
-                rel="noreferrer"
-                className="px-6 py-3 border border-white/10 rounded-xl font-medium hover:bg-white/10 transition"
-              >
-                Live Demo
-              </a>
+              {selectedProject.demo ? (
+                <a
+                  href={selectedProject.demo}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-6 py-3 border border-white/10 rounded-xl font-medium hover:bg-white/10 transition"
+                >
+                  Live Demo
+                </a>
+              ) : (
+                <span className="px-6 py-3 border border-white/10 text-slate-300 rounded-xl font-medium">
+                  Demo Coming Soon
+                </span>
+              )}
 
               <button
                 onClick={() => setSelectedProject(null)}
