@@ -1,6 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@300;400;500&display=swap');
 @import "tailwindcss";
 
-html, body, #root {
+:root {
+  --bg: #06080f;
+  --bg2: #0c0f1a;
+  --bg3: #111525;
+  --ink: #e8e4d9;
+  --muted: #7a7d8f;
+  --teal: #1de4c6;
+  --amber: #f5b731;
+  --border: rgba(255, 255, 255, 0.06);
+  --border2: rgba(255, 255, 255, 0.12);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
   margin: 0;
   min-height: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Syne', sans-serif;
+}
+
+#root {
+  min-height: 100%;
+}
+
+.font-display {
+  font-family: 'Instrument Serif', serif;
+}
+
+.font-mono {
+  font-family: 'IBM Plex Mono', monospace;
 }
